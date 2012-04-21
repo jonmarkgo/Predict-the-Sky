@@ -42,19 +42,17 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
-    puts @subscriber.to_json
-    if (params[:subscriber][:address] != '')
-      coords = Geocoder.coordinates(params[:subscriber][:address])
+    if (params[:address] != '')
+      coords = Geocoder.coordinates(params[:address])
       @subscriber.latitude = coords[0]
       @subscriber.longitude = coords[1]
     end
-    puts @subscriber.to_json
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    #@client.account.sms.messages.create(
-     # :from => '+12014256272',
-     # :to => @subscriber.phonenumber,
-     # :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
-    #)
+    @client.account.sms.messages.create(
+      :from => '+12014256272',
+      :to => @subscriber.phonenumber,
+      :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
+    )
     respond_to do |format|
       if @subscriber.save
         format.html { redirect_to @subscriber, notice: 'Subscriber was successfully created.' }

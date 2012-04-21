@@ -9,11 +9,11 @@
   }
 
   function error(msg) {
-    $('#address').show();
+    $('#address_field').show();
     console.log(msg);
   }
   $(document).ready(function() {
-    $('#address').hide();
+    $('#address_field').hide();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
@@ -40,9 +40,9 @@
   </div>
   <%= f.hidden_field :latitude %>
   <%= f.hidden_field :longitude %>
-  <div class="field" id="address">
-    <label for="subscriber_address">Address</label><br>
-    <input id="subscriber_address" name="subscriber[address]" size="30" type="text">
+  <div class="field" id="address_field">
+    <label for="address">Address</label><br>
+    <input id="address" name="address" size="30" type="text">
   </div>
   <div class="actions">
     <%= f.submit %>
