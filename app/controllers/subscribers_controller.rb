@@ -42,13 +42,17 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    
+
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
     @subscriber.phonenumber = @subscriber.phonenumber.gsub(/\D/, "")  
+    address = params[:address] + ', ' + params[:city] + ', ' + params[:state] + ' ' + params[:zip]
     if (params[:address] != '')
-      coords = Geocoder.coordinates(params[:address])
+      coords = Geocoder.coordinates(address)
       @subscriber.latitude = coords[0]
       @subscriber.longitude = coords[1]
+    else
+      @subscriber.latitude = params[:subscriber][:latitude]
+      @subscriber.longitude = params[:subscriber][:latitude]
     end
 
     respond_to do |format|
