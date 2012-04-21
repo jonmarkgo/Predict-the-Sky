@@ -8,8 +8,9 @@ Predict the Sky SMS
 http://www.n2yo.com/satellites/?c=1
 
 ## Subscribe Options ##
-- Satellites
-- Sunrise/sunset
+- Satellites (http://sscweb.gsfc.nasa.gov/WebServices/)
+- ISS (http://open-notify.org/api-doc)
+- Sunrise/sunset (https://github.com/mikereedell/sunrisesunset-ruby)
 - Solar flares/storms
 - Close planets
 - Rocket launches
