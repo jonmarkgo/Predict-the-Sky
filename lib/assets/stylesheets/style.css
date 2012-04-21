@@ -1,0 +1,125 @@
+html, body{
+	background-color: #121c2d;
+	background-image: url(../assets/bg.png);
+	color:#f7f7f7;
+	font-family: "Lucida Grande";
+	font-size: 15px;
+}
+canvas{
+	position: absolute;
+	z-index: 10;
+}
+h2{
+	color:#96aed5;
+	font-size: 29px;
+	margin: 0;
+	text-shadow: 0 1px 0 #000;
+}
+p{
+	margin: 0;
+	text-shadow: 0 1px 0 #000;
+}
+#glow{
+	background: url(../assets/glow.png) top center no-repeat;
+}
+#container{
+	margin: 0 auto;
+	width: 960px;
+	position: relative;
+	z-index: 20;
+}
+/* ========================================================= Header ===*/
+header{
+	padding: 40px 0;
+}
+header img{
+	margin: 0 auto;
+	width: 507px;
+	display: block;
+}
+/* ========================================================= Content ===*/
+#content{
+	background-color: rgba(0,0,0,0.3);
+	background-image: url(../assets/noise.png);
+	border: 1px solid #000;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset;
+	margin: 0 0 10px;
+	padding: 30px;
+}
+#pitch{
+    float: left;
+    margin: 0 30px 0 0;
+    width: 450px;
+}
+#form{
+	
+}
+#form ul{
+	margin: 0;
+	padding: 0;
+}
+#form li{
+	list-style: none;
+	margin: 0 0 5px;
+}
+label{
+	display: inline-block;
+    margin: 0 20px 0 0;
+    text-align: right;
+    width: 80px;
+}
+input{
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	display: inline-block;
+	width: 303px;
+	height: 18px;
+	padding: 4px;
+	margin-bottom: 9px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #555;
+	border: 1px solid #CCC;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+button{
+	background-color: #f1411e;
+	border: 1px solid #db3c1d;
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 1px 3px rgba(0,0,0,0.8);
+	color: #eee;
+	float: right;
+	padding: 9px 22px 5px;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+	outline: none;
+}
+button:hover{
+	background-color: #ff4800;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 1px 6px rgba(0,0,0,0.9);
+}
+button:active{
+	background-color: #de3b1b;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3) inset, 0 1px 3px rgba(0,0,0,0.8);
+}
+/* ========================================================= Footer ===*/
+footer{
+	margin: 0 0 10px;
+}
+#crafted{
+	color: #2b3e5e;
+	display: inline;
+	font-size: 10px;
+}
+#crafted p{
+	display: inline;
+	margin: 0;
+}
+#crafted a{
+	color:#3c5682;
+}
+#twitter{
+	float: right;
+}

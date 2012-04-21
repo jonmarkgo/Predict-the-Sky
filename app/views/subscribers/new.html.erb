@@ -1,5 +1,90 @@
-<h1>New subscriber</h1>
 
-<%= render 'form' %>
+<script>
+  function success(position) {
+    var lat = $('#subscriber_latitude'); 
+    var lng = $('#subscriber_longitude');
+    
+    lat.val(position.coords.latitude);
+    lng.val(position.coords.longitude);
+  }
 
-<%= link_to 'Back', subscribers_path %>
+  function error(msg) {
+    $('#address_field').show();
+    console.log(msg);
+  }
+  $(document).ready(function() {
+    $("#subscriber_phonenumber").keydown(function(event) {
+      // Allow: backspace, delete, tab and escape
+      if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || 
+          // Allow: Ctrl+A
+         (event.keyCode == 65 && event.ctrlKey === true) || 
+         // Allow: home, end, left, right
+         (event.keyCode >= 35 && event.keyCode <= 39)) {
+         // let it happen, don't do anything
+        return;
+      }
+      else {
+        // Ensure that it is a number and stop the keypress
+        if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+           event.preventDefault(); 
+        }   
+      }
+    });
+    $('#address_field').hide();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      error('not supported');
+    }
+  });
+</script>
+
+  <div id="pitch">
+    <h2>Pitch Title</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="">tempor</a> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div><!--/pitch-->
+  <div id="form">
+    <%= form_for(@subscriber) do |f| %>
+  <% if @subscriber.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
+
+      <ul>
+      <% @subscriber.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+        <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+<ul>
+  <li>
+    <%= f.label :phonenumber, "Phone #" %>
+    <%= f.text_field :phonenumber, :maxlength => 11, :placeholder => '12125554444' %>
+
+  </li>
+      <div id="address_field">
+        <li>
+          <label>Address</label>
+          <input name="address" type="text">
+        </li>
+        <li>
+          <label>City</label>
+          <input name="city" type="text">
+        </li>
+        <li>
+          <label>State</label>
+          <input name="state" type="text">
+        </li>
+        <li>
+          <label>Zip</label>
+          <input name="zip" type="text">
+        </li>
+      </div>
+        <li>
+          <button type="submit">Get Notified</button>
+        </li>
+      </ul>
+    <% end %>
+  </div><!--/form-->
