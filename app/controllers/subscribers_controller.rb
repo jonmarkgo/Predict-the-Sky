@@ -44,7 +44,7 @@ class SubscribersController < ApplicationController
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
     
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
-
+    @subscriber.phonenumber = @subscriber.phonenumber.gsub(/\D/, "")  
     if (params[:address] != '')
       coords = Geocoder.coordinates(params[:address])
       @subscriber.latitude = coords[0]
