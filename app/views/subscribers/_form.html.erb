@@ -1,27 +1,25 @@
 
 <script>
-function success(position) {
-  var lat = document.querySelector('#subscriber_latitude'); 
-  var lng = document.querySelector('#subscriber_longitude');
-  
-  lat.value = position.coords.latitude;
-  lng.value = position.coords.longitude;
-}
+  function success(position) {
+    var lat = $('#subscriber_latitude'); 
+    var lng = $('#subscriber_longitude');
+    
+    lat.val(position.coords.latitude);
+    lng.val(position.coords.longitude);
+  }
 
-function error(msg) {
-  var s = document.querySelector('#status');
-  s.innerHTML = typeof msg == 'string' ? msg : "failed";
-  s.className = 'fail';
-  
-  // console.log(arguments);
-}
-
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(success, error);
-} else {
-  error('not supported');
-}
-
+  function error(msg) {
+    $('#address').show();
+    console.log(msg);
+  }
+  $(document).ready(function() {
+    $('#address').hide();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      error('not supported');
+    }
+  });
 </script>
 <%= form_for(@subscriber) do |f| %>
   <% if @subscriber.errors.any? %>
@@ -40,13 +38,11 @@ if (navigator.geolocation) {
     <%= f.label :phonenumber %><br />
     <%= f.text_field :phonenumber %>
   </div>
-  <div class="field">
-    <%= f.label :latitude %><br />
-    <%= f.text_field :latitude %>
-  </div>
-  <div class="field">
-    <%= f.label :longitude %><br />
-    <%= f.text_field :longitude %>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <div class="field" id="address">
+    <label for="subscriber_address">Address</label><br>
+    <input id="subscriber_address" name="subscriber[adress]" size="30" type="text">
   </div>
   <div class="actions">
     <%= f.submit %>
