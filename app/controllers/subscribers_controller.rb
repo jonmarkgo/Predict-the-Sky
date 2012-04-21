@@ -41,22 +41,25 @@ class SubscribersController < ApplicationController
   # POST /subscribers.json
   def create
     @subscriber = Subscriber.new
+    @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
+
     if (params[:address] != '')
       coords = Geocoder.coordinates(params[:address])
       @subscriber.latitude = coords[0]
       @subscriber.longitude = coords[1]
     end
-    @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    @client.account.sms.messages.create(
-      :from => '+12014256272',
-      :to => @subscriber.phonenumber,
-      :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
-    )
+
     respond_to do |format|
       if @subscriber.save
-        format.html { redirect_to @subscriber, notice: 'Subscriber was successfully created.' }
-        format.json { render json: @subscriber, status: :created, location: @subscriber }
+
+        @client.account.sms.messages.create(
+          :from => '+12014256272',
+          :to => @subscriber.phonenumber,
+          :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
+        )
+        format.html { redirect_to :root, notice: 'Subscriber was successfully created.' }
       else
         format.html { render action: "new" }
         format.json { render json: @subscriber.errors, status: :unprocessable_entity }
