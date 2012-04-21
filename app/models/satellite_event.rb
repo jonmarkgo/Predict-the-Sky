@@ -1,0 +1,3 @@
+class SatelliteEvent < Event
+
+end
