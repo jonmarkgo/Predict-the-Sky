@@ -41,7 +41,12 @@ class SubscribersController < ApplicationController
   # POST /subscribers.json
   def create
     @subscriber = Subscriber.new(params[:subscriber])
-
+    @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    @client.account.sms.messages.create(
+      :from => '+12014256272',
+      :to => @subscriber.phonenumber,
+      :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
+    )
     respond_to do |format|
       if @subscriber.save
         format.html { redirect_to @subscriber, notice: 'Subscriber was successfully created.' }
