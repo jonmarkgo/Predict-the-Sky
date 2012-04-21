@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    RubySunrise (0.3)
+      tzinfo
     actionmailer (3.2.3)
       actionpack (= 3.2.3)
       mail (~> 2.4.4)
@@ -38,9 +40,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.1)
+    diff-lcs (1.1.3)
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
+    factory_girl (3.1.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (3.1.0)
+      factory_girl (~> 3.1.0)
+      railties (>= 3.0.0)
     geocoder (1.1.1)
     heroku (2.24.1)
       launchy (>= 0.3.2)
@@ -94,6 +102,19 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rspec (2.9.0)
+      rspec-core (~> 2.9.0)
+      rspec-expectations (~> 2.9.0)
+      rspec-mocks (~> 2.9.0)
+    rspec-core (2.9.0)
+    rspec-expectations (2.9.1)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.9.0)
+    rspec-rails (2.9.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.9.0)
     rubyzip (0.9.7)
     sass (3.1.16)
     sass-rails (3.2.5)
@@ -123,12 +144,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RubySunrise (~> 0.3)
   coffee-rails (~> 3.2.1)
+  factory_girl_rails (~> 3.0)
   geocoder
   heroku
   jquery-rails
   pg
   rails (= 3.2.3)
+  rspec-rails (~> 2.6)
   sass-rails (~> 3.2.3)
   sqlite3
   twilio-ruby

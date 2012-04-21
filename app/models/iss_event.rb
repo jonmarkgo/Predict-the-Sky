@@ -1,0 +1,3 @@
+class IssEvent < Event
+  
+end
