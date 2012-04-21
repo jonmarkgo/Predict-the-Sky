@@ -19,7 +19,7 @@ task :check_events do
       @client.account.sms.messages.create(
         :from => '+12014256272',
         :to => subscriber.phonenumber,
-        :body => 'The Internation Space Station will pass overhead soon, go outside and check it out! NOW!'
+        :body => 'The International Space Station will pass overhead soon, go outside and check it out! NOW!'
       )
     end
   end
