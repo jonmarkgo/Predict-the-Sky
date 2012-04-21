@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Phonenumber:</b>
+  <%= @subscriber.phonenumber %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @subscriber.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @subscriber.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscriber_path(@subscriber) %> |
+<%= link_to 'Back', subscribers_path %>
