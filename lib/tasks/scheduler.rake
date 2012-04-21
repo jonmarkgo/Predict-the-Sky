@@ -1,5 +1,4 @@
 require File.expand_path('../../../config/environment', __FILE__)
-require File.expand_path('../../../app/models/iss_position', __FILE__)
 require File.expand_path('../../../app/models/iss_event', __FILE__)
 require File.expand_path('../../../app/models/subscriber', __FILE__)
 
