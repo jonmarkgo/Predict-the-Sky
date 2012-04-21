@@ -53,13 +53,13 @@
 
   <div class="field">
     <%= f.label :phonenumber %><br />
-    <%= f.text_field :phonenumber, :maxlength => 11, :size => 13 %>
+    <%= f.text_field :phonenumber, :maxlength => 11, :size => 13, :placeholder => '12125554444' %>
   </div>
   <%= f.hidden_field :latitude %>
   <%= f.hidden_field :longitude %>
   <div class="field" id="address_field">
     <label for="address">Address</label><br>
-    <input id="address" name="address" size="30" type="text">
+    <textarea id="address" name="address"></textarea>
   </div>
   <div class="actions">
     <%= f.submit %>
