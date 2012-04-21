@@ -18,7 +18,7 @@ gem 'geocoder'
 
 gem 'heroku'
 gem "RubySunrise", "~> 0.3"
-gem "factory_girl_rails", "~> 3.0"
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,4 +36,5 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
+  gem "factory_girl_rails", "~> 3.0"
 end
