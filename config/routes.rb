@@ -1,4 +1,6 @@
 PredictTheSky::Application.routes.draw do
+  resources :events
+
   resources :subscribers
 
   # The priority is based upon order of creation:
