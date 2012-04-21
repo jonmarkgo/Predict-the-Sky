@@ -1,6 +1,7 @@
 PredictTheSky::Application.routes.draw do
-  resources :events
-  resources :subscribers
+
+  root :to => 'subscribers#new'
+  resources :subscribers, :only => [:new, :create]
 
 
 end
