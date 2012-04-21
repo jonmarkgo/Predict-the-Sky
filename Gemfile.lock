@@ -152,6 +152,7 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 3.2.3)
+  rest-client (~> 1.6.7)
   rspec-rails (~> 2.6)
   sass-rails (~> 3.2.3)
   sqlite3

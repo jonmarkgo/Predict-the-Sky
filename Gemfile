@@ -18,7 +18,7 @@ gem 'geocoder'
 
 gem 'heroku'
 gem "RubySunrise", "~> 0.3"
-
+gem "rest-client", "~> 1.6.7"
 
 # Gems used only for assets and not required
 # in production environments by default.
