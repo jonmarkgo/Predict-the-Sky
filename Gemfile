@@ -9,7 +9,7 @@ group :production do
   gem 'pg'
 end
 
-gem 'sqlite3'
+
 gem 'twilio-ruby'
 
 gem 'geocoder'
@@ -33,6 +33,7 @@ end
 gem 'jquery-rails'
 
 group :test, :development do
+  gem 'sqlite3'
   gem "rspec-rails", "~> 2.6"
   gem "factory_girl_rails", "~> 3.0"
 end
