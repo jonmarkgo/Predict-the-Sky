@@ -59,7 +59,7 @@ class SubscribersController < ApplicationController
       if @subscriber.save
 
         @client.account.sms.messages.create(
-          :from => '+12014256272',
+          :from => ENV['TWILIO_FROM_NUMBER'],
           :to => @subscriber.phonenumber,
           :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
         )

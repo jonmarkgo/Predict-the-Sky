@@ -41,17 +41,19 @@ class IssEvent < Event
           end
           count = count + 1
         end
+
+        alt = alt.gsub(/\D/, "") 
         iss_time = Time.parse(date + ' ' + start_time)
 
         time_diff = Time.diff(iss_time, t)
 
-        if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] > 20)
+        if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] < 20)
           puts 'Sending SMS to ' + subscriber.phonenumber + ' about the ISS'
       
           @client.account.sms.messages.create(
-            :from => '+14155992671',
+            :from => ENV['TWILIO_FROM_NUMBER'],
             :to => subscriber.phonenumber,
-            :body => 'The International Space Station will pass overhead in ' + time_diff[:minute] + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
+            :body => 'The International Space Station will pass overhead in ' + time_diff[:minute].to_s + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
           )
         end
       end
