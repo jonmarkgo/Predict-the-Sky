@@ -3,7 +3,7 @@ Predict-the-Sky
 
 Predict the Sky SMS
 
-'''We now crawl http://www.heavens-above.com/'''
+## We now scrape http://www.heavens-above.com/ because it tells you when something will be actually visible ##
 
 ## Satellite List ##
 http://www.n2yo.com/satellites/?c=1
