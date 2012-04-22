@@ -9,7 +9,6 @@ group :production do
   gem 'pg'
 end
 
-
 gem 'twilio-ruby'
 
 gem 'geocoder'
@@ -17,7 +16,7 @@ gem 'geocoder'
 gem 'heroku'
 gem 'hpricot'
 gem 'time_diff'
-#gem "rest-client", "~> 1.6.7"
+gem 'timezone'
 
 # Gems used only for assets and not required
 # in production environments by default.

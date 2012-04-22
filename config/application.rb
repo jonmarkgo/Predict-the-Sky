@@ -56,6 +56,9 @@ module PredictTheSky
     config.generators do |g|
       g.test_framework :rspec
     end
-  config.assets.version = '1.0'
+    config.assets.version = '1.0'
+    Timezone::Configure.begin do |c|
+      c.username = 'jeffsaracco'
+    end
   end
 end
