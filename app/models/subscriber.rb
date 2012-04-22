@@ -5,7 +5,8 @@ class Subscriber < ActiveRecord::Base
   after_validation :reverse_geocode  # auto-fetch address
 
   validates :phonenumber, :uniqueness => true, :numericality => { :only_integer => true, :greater_than_or_equal_to => 12012000000, :less_than_or_equal_to => 19999999999}
-
+  validates :latitude, :presence => true
+  validates :longitude, :presence => true
   def self.within(latitude, longitude)
     Subscriber.near([latitude, longitude], 50)
   end
