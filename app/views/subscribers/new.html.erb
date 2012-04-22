@@ -61,34 +61,33 @@
     <%= f.hidden_field :longitude %>
     <ul>
       <li>
-      <%= f.label :phonenumber, "Phone #" %>
+      <%= f.label :phonenumber, "Phone #:" %>
       <%= f.text_field :phonenumber, :maxlength => 11, :placeholder => '12125554444' %>
       </li>
       <div id="address_field">
         <li>
-        <label>Address</label>
+        <label>Address:</label>
         <input name="address" type="text">
         </li>
         <li>
-        <label>City</label>
+        <label>City:</label>
         <input name="city" type="text">
         </li>
         <li>
-        <label>State</label>
+        <label>State:</label>
         <input name="state" type="text">
         </li>
         <li>
-        <label>Zip</label>
+        <label>Zip:</label>
         <input name="zip" type="text">
         </li>
       </div>
       <li>
-      <%= f.label :iss_event, "Subscribe to ISS Events" %>
-      <%= f.check_box :iss_event %>
-      </li>
-      <li>
-      <%= f.label :iridium_event, "Subscribe to Iridium Events" %>
-      <%= f.check_box :iridium_event %>
+      	<label>Subscribe to Events:</label>
+		<span><%= f.label :iss_event, "ISS" %>
+		<%= f.check_box :iss_event %></span>
+		<span><%= f.label :iridium_event, "Iridium" %>
+		<%= f.check_box :iridium_event %></span>
       </li>
       <li>
       <button type="submit">Get Notified</button>
