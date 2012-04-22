@@ -61,7 +61,7 @@ class SubscribersController < ApplicationController
         @client.account.sms.messages.create(
           :from => ENV['TWILIO_FROM_NUMBER'],
           :to => @subscriber.phonenumber,
-          :body => 'Welcome to the Predict the Sky notification service! Txt STOP to unsubscribe.'
+          :body => 'Welcome to the Predict the Sky notification service, your time zone is ' + @subscriber.zone + '! Txt STOP to unsubscribe.'
         )
         format.html { redirect_to :root, notice: 'Subscriber was successfully created.' }
       else
