@@ -3,10 +3,10 @@ require 'open-uri'
 require 'time_diff'
 
 
-class IssEvent < Event
+class IridiumEvent < Event
   def self.scan_for_subscriber
     subscribers = Subscriber.where('latitude IS NOT NULL AND longitude IS NOT NULL')
-    puts "Found #{subscribers.count} subscribers"
+    puts "Found #{subscribers.count} subscribers for iridium event"
 
     if subscribers.count > 0
       @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
@@ -29,17 +29,17 @@ class IssEvent < Event
         end
 
         alt = alt.gsub(/\D/, "") 
-        iss_time = Time.parse(date + ' ' + start_time)
+        ir_time = Time.parse(date + ' ' + start_time)
 
-        time_diff = Time.diff(iss_time, t)
+        time_diff = Time.diff(ir_time, t)
 
         if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] < 20)
-          puts 'Sending SMS to ' + subscriber.phonenumber + ' about the ISS'
+          puts 'Sending SMS to ' + subscriber.phonenumber + ' about Iridium Flare'
       
           @client.account.sms.messages.create(
             :from => ENV['TWILIO_FROM_NUMBER'],
             :to => subscriber.phonenumber,
-            :body => 'The International Space Station will pass overhead in ' + time_diff[:minute].to_s + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
+            :body => 'There will be an Iridium Flare overhead in ' + time_diff[:minute].to_s + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
           )
         end
       end

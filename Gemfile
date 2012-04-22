@@ -16,7 +16,6 @@ gem 'geocoder'
 
 gem 'heroku'
 gem 'hpricot'
-gem 'placefinder'
 gem 'time_diff'
 #gem "rest-client", "~> 1.6.7"
 

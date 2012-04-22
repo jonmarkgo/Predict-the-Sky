@@ -42,7 +42,7 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-
+    @subscriber.zone = params[:timezone]
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
     @subscriber.phonenumber = @subscriber.phonenumber.gsub(/\D/, "")  
     address = params[:address] + ', ' + params[:city] + ', ' + params[:state] + ' ' + params[:zip]
