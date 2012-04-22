@@ -45,9 +45,9 @@ class SubscribersController < ApplicationController
     @subscriber.zone = params[:timezone]
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
     @subscriber.phonenumber = @subscriber.phonenumber.gsub(/\D/, "")  
-    address = params[:address] + ', ' + params[:city] + ', ' + params[:state] + ' ' + params[:zip]
+    @address = params[:address] + ', ' + params[:city] + ', ' + params[:state] + ' ' + params[:zip]
     if (params[:address] != '')
-      coords = Geocoder.coordinates(address)
+      coords = Geocoder.coordinates(@address)
       @subscriber.latitude = coords[0]
       @subscriber.longitude = coords[1]
     else
