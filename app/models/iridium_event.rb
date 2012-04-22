@@ -42,7 +42,7 @@ class IridiumEvent < Event
           t = Time.zone.now
           time_diff = Time.diff(ir_time, t)
 
-          if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] < 20)
+          if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] < 9)
             puts 'Sending SMS to ' + subscriber.phonenumber + ' about Iridium Flare'
 
             @client.account.sms.messages.create(
