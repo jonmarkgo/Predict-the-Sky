@@ -2,6 +2,9 @@ require 'hpricot'
 require 'open-uri'
 require 'time_diff'
 
+#this code is somewhat awful
+#but its the only way I found to get accurate data about when a satellite will actually be VISIBLE
+#sorry for the ugliness, but hey, it works!
 
 class IssEvent < Event
   def self.scan_for_subscriber
