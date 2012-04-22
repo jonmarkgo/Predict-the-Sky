@@ -1,7 +1,7 @@
 
 <script>
   function success(position) {
-    var lat = $('#subscriber_latitude'); 
+    var lat = $('#subscriber_latitude');
     var lng = $('#subscriber_longitude');
 
     lat.val(position.coords.latitude);
@@ -15,9 +15,9 @@
   $(document).ready(function() {
     $("#subscriber_phonenumber").keydown(function(event) {
       // Allow: backspace, delete, tab and escape
-      if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || 
+      if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 ||
       // Allow: Ctrl+A
-      (event.keyCode == 65 && event.ctrlKey === true) || 
+      (event.keyCode == 65 && event.ctrlKey === true) ||
       // Allow: home, end, left, right
       (event.keyCode >= 35 && event.keyCode <= 39)) {
         // let it happen, don't do anything
@@ -26,8 +26,8 @@
       else {
         // Ensure that it is a number and stop the keypress
         if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
-          event.preventDefault(); 
-        }   
+          event.preventDefault();
+        }
       }
     });
     $('#address_field').hide();
@@ -41,7 +41,7 @@
 
 <div id="pitch">
   <h2>Pitch Title</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="">tempor</a> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+  <p> Predict the Sky SMS is a text message service for satellite enthusiasts. It tracks satellite events and sends you a SMS message when one is visible from your location on Earth as it's happening. Right now it tracks the ISS as it passes over the earth, as well as iridium flare events from a variety of satelites. It pulls the data from <a href="http://www.heavens-above.com">Heavens-Above.com</a> and uses <a href="http://twilio.com/">Twilio</a> to send the text messages to subscribers.</p>
 </div><!--/pitch-->
 
 <div id="form" class="clearfix">
