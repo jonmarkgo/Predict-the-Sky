@@ -10,7 +10,7 @@ require 'time_diff'
 
 class IridiumEvent
   def self.scan_for_subscriber
-    subscribers = Subscriber.where('latitude IS NOT NULL AND longitude IS NOT NULL')
+    subscribers = Subscriber.where('latitude IS NOT NULL AND longitude IS NOT NULL AND iridium_event = 1')
     puts "Found #{subscribers.count} subscribers for iridium event"
 
     if subscribers.count > 0
