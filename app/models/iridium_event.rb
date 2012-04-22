@@ -14,16 +14,16 @@ class IridiumEvent < Event
         doc = Hpricot(open("http://www.heavens-above.com/iridium.asp?Dur=1&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz="+subscriber.zone))
 
         count = 1
-        start_time = alt = az = date = ''
+        start_time = alt = sat = date = ''
         doc.search('table.standardTable').at('tr.lightrow').search('td') do | col |
           if (count == 1)
-            date = col.at('a').inner_html
-          elsif (count == 3)
-            start_time = col.inner_html
+            date = col.inner_html
+          elsif (count == 2)
+            start_time = col.at('a').inner_html
           elsif (count == 4)
             alt = col.inner_html
-          elsif (count == 5)
-            az = col.inner_html
+          elsif (count == 8)
+            sat = col.at('a').inner_html
           end
           count = count + 1
         end
@@ -39,7 +39,7 @@ class IridiumEvent < Event
           @client.account.sms.messages.create(
             :from => ENV['TWILIO_FROM_NUMBER'],
             :to => subscriber.phonenumber,
-            :body => 'There will be an Iridium Flare overhead in ' + time_diff[:minute].to_s + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
+            :body => 'The satellite ' + sat + ' will flare overhead in ' + time_diff[:minute].to_s + ' minutes at about ' + alt + ' degrees up, go check it out!'
           )
         end
       end
