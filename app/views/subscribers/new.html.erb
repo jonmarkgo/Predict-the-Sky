@@ -3,7 +3,7 @@
   function success(position) {
     var lat = $('#subscriber_latitude'); 
     var lng = $('#subscriber_longitude');
-    
+
     lat.val(position.coords.latitude);
     lng.val(position.coords.longitude);
   }
@@ -16,166 +16,174 @@
     $("#subscriber_phonenumber").keydown(function(event) {
       // Allow: backspace, delete, tab and escape
       if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || 
-          // Allow: Ctrl+A
-         (event.keyCode == 65 && event.ctrlKey === true) || 
-         // Allow: home, end, left, right
-         (event.keyCode >= 35 && event.keyCode <= 39)) {
-         // let it happen, don't do anything
+      // Allow: Ctrl+A
+      (event.keyCode == 65 && event.ctrlKey === true) || 
+      // Allow: home, end, left, right
+      (event.keyCode >= 35 && event.keyCode <= 39)) {
+        // let it happen, don't do anything
         return;
       }
       else {
         // Ensure that it is a number and stop the keypress
         if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
-           event.preventDefault(); 
+          event.preventDefault(); 
         }   
       }
     });
     $('#address_field').hide();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
-    } else {
+      } else {
       error('not supported');
     }
   });
 </script>
 
-  <div id="pitch">
-    <h2>Pitch Title</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="">tempor</a> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
-  </div><!--/pitch-->
+<div id="pitch">
+  <h2>Pitch Title</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="">tempor</a> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+</div><!--/pitch-->
 
-  <div id="form" class="clearfix">
-    <%= form_for(@subscriber) do |f| %>
-  <% if @subscriber.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
+<div id="form" class="clearfix">
+  <%= form_for(@subscriber) do |f| %>
+    <% if @subscriber.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
 
-      <ul>
-      <% @subscriber.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-        <%= f.hidden_field :latitude %>
-  <%= f.hidden_field :longitude %>
-<ul>
-  <li>
-    <%= f.label :phonenumber, "Phone #" %>
-    <%= f.text_field :phonenumber, :maxlength => 11, :placeholder => '12125554444' %>
+        <ul>
+          <% @subscriber.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.hidden_field :latitude %>
+    <%= f.hidden_field :longitude %>
+    <ul>
+      <li>
+      <%= f.label :phonenumber, "Phone #" %>
+      <%= f.text_field :phonenumber, :maxlength => 11, :placeholder => '12125554444' %>
 
-  </li>
-  <li>
-    <label>Your Time Zone</label>
-    <select name="timezone">
-  <option value="UCT11">(GMT -11) American Samoa, Midway Is., Niue Is., Samoa</option>
-  <option value="UCT10">(GMT -10) USA (Hawaii), Tahiti, Cook Is., Johnston Is.</option>
-  <option value="AlST">(GMT -10) USA (Aleutian Is.)</option>
-  <option value="NAST">(GMT -9) USA (Alaska)</option>
-  <option value="MxBajaN">(GMT -8) Mexico (Baja N.)</option>
-  <option value="PST">(GMT -8) USA (Pacific), Canada (Pacific &amp; Yukon)</option>
-  <option value="MxBajaS">(GMT -7) Mexico (Baja S.)</option>
-  <option value="MST">(GMT -7) USA (Mountain), Canada (Mountain)</option>
-  <option value="Arizona">(GMT -7) USA (Arizona)</option>
-  <option value="UCT7">(GMT -7) None</option>
-  <option value="Sask">(GMT -6) Canada (Saskatchewan)</option>
-  <option value="CST">(GMT -6) USA (Central), Canada (Central)</option>
-  <option value="Mex">(GMT -6) Mexico</option>
-  <option value="UCT6">(GMT -6) Belize, Costa Rica, El Salvador, Guatemala, Honduras, Nicaragua</option>
-  <option value="UCT5">(GMT -5) Cayman Is., Colombia, Ecuador, Jamaica, Panama</option>
-  <option value="Indiana">(GMT -5) USA (Indiana)</option>
-  <option selected="selected" value="EST">(GMT -5) USA (Eastern), Canada (Eastern), Bahamas, Haiti, Turks &amp; Cacos</option>
-  <option value="ACRE">(GMT -5) Brazil (Trinity of Acre)</option>
-  <option value="Ven">(GMT -4.5) Venezuela</option>
-  <option value="WBST">(GMT -4) Brazil (West)</option>
-  <option value="AST">(GMT -4) Canada (Atlantic), Bermuda, Greenland (Thule)</option>
-  <option value="Chile">(GMT -4) Chile</option>
-  <option value="UCT4">(GMT -4) Barbados, Bolivia, Dominican Republic, Guadeloupe, Guiana, Puerto Rico, Venezuela</option>
-  <option value="NST">(GMT -3.5) Canada (Newfoundland)</option>
-  <option value="SAT">(GMT -3) Argentina, French Guiana, Surinam, Uruguay</option>
-  <option value="Arg">(GMT -3) Argentina</option>
-  <option value="EBST">(GMT -3) Brazil (East, including all coast and Brasilia)</option>
-  <option value="NAST3">(GMT -3) Saint Pierre &amp; Miquelon</option>
-  <option value="NORO">(GMT -2) Brazil (Fernando De Noronha)</option>
-  <option value="EUT1">(GMT -1) Greenland (Scoresbysund), Portugal (Azores)</option>
-  <option value="UCT1">(GMT -1) Cape Verde Is</option>
-  <option value="UCT">(GMT +0) Iceland, Mali, Ivory Coast, Gambia, Ghana, Guinea, Liberia, Morocco, Senegal</option>
-  <option value="GMT">(GMT +0) United Kingdom, Ireland</option>
-  <option value="PWT">(GMT +0) Portugal, Madeira</option>
-  <option value="WET">(GMT +0) Spain (Canary Is.), Faroe Islands</option>
-  <option value="CET">(GMT +1) Austria, Belgium, Denmark, France, Germany, Italy, Netherlands, Norway, Spain, Sweden, Switzerland</option>
-  <option value="UCTm1">(GMT +1) Algeria, Angola, Cameroon, Chad, Congo, Gabon, Niger, Nigeria, Tunisia</option>
-  <option value="UCTm2">(GMT +2) Botswana, Burundi, Estonia, Mozambique, Rwanda, Swaziland, Zambia, Zimbabwe</option>
-  <option value="SST">(GMT +2) Syria</option>
-  <option value="SAST">(GMT +2) South Africa</option>
-  <option value="EUTm2">(GMT +2) Lebanon</option>
-  <option value="EET">(GMT +2) Bulgaria, Finland, Greece, Romania, Russian Fed. (Zone1), Turkey, Ukraine</option>
-  <option value="Egypt">(GMT +2) Egypt</option>
-  <option value="Israel">(GMT +2) Israel</option>
-  <option value="JST">(GMT +2) Jordan</option>
-  <option value="IST">(GMT +3) Iraq</option>
-  <option value="RFTm2">(GMT +3) Russian Federation (Zone 1)</option>
-  <option value="UCTm3">(GMT +3) Ethiopia, Kenya, Kuwait, Madagascar, Qatar, Saudi Arabia, Somalia, Sudan, Tanzania</option>
-  <option value="Iran">(GMT +3.5) Iran</option>
-  <option value="UCTm4">(GMT +4) Azerbaijan, Mauritius, Oman, Reunion, Seychelles, United Arab Emirates</option>
-  <option value="RFTm3">(GMT +4) Russian Federation (Zone 2)</option>
-  <option value="UAEST">(GMT +4) United Arab Emirates</option>
-  <option value="AFG">(GMT +4.5) Afghanistan</option>
-  <option value="RFTm4">(GMT +5) Russian Federation (Zone 3)</option>
-  <option value="UCTm5">(GMT +5) Maldives, Pakistan, Tajikistan, Turkmenistan, Uzbekistan</option>
-  <option value="UCTm5colon30">(GMT +5.5) India, Sri Lanka</option>
-  <option value="UCTm5colon45">(GMT +5.75) Nepal</option>
-  <option value="UCTm6">(GMT +6) Bangladesh, Bhutan</option>
-  <option value="RFTm5">(GMT +6) Russian Federation (Zone 4)</option>
-  <option value="UCTm6colon30">(GMT +6.5) Myanmar, Cocos (Keeling) Is.</option>
-  <option value="UCTm7">(GMT +7) Cambodia, Kampuchea, Indonesia (West), Thailand, Vietnam</option>
-  <option value="RFTm6">(GMT +7) Russian Federation (Zone 5)</option>
-  <option value="RFTm7">(GMT +8) Russian Federation (Zone 6)</option>
-  <option value="UCTm8">(GMT +8) Brunei</option>
-  <option value="ChST">(GMT +8) China, Hong Kong, Taiwan</option>
-  <option value="MALST">(GMT +8) Malaysia, Singapore, Indonesia (Central), Philippines</option>
-  <option value="WAST">(GMT +8) Australia (Western)</option>
-  <option value="JapST">(GMT +9) Japan</option>
-  <option value="UCTm9">(GMT +9) Indonesia (East), Korea</option>
-  <option value="RFTm8">(GMT +9) Russian Federation (Zone 7)</option>
-  <option value="UCTm9colon30">(GMT +9.5) Australia (Northern Territory)</option>
-  <option value="ACST">(GMT +9.5) Australia (South Australia and Broken Hill)</option>
-  <option value="AEST">(GMT +10) Australia (NSW, Capitol Territory, Victoria)</option>
-  <option value="UCTm10">(GMT +10) Australia (Queensland), Guam, Papua New Guinea</option>
-  <option value="RFTm9">(GMT +10) Russian Federation (Zone 8)</option>
-  <option value="TST">(GMT +10) Australia (Tasmania)</option>
-  <option value="UCTm11">(GMT +11) New Caledonia, Solomon Is., Vanuatu</option>
-  <option value="RFTm10">(GMT +11) Russian Federation (Zone 9)</option>
-  <option value="UCTm11colon30">(GMT +11.5) Norfolk Is.</option>
-  <option value="UCTm12">(GMT +12) Fiji, Kiribati, Nauru, Tuvalu, Wake Is., Wallis &amp; Futana Is.</option>
-  <option value="NZST">(GMT +12) New Zealand</option>
-  <option value="RFTm11">(GMT +12) Russian Federation (Zone 10)</option>
-  <option value="RFTm12">(GMT +13) Russian Federation (Zone 11)</option>
-  <option value="UCTm13">(GMT +13) Tonga</option>
+      </li>
+      <li>
+      <label>Your Time Zone</label>
+      <select name="timezone">
+        <option value="UCT11">(GMT -11) American Samoa, Midway Is., Niue Is., Samoa</option>
+        <option value="UCT10">(GMT -10) USA (Hawaii), Tahiti, Cook Is., Johnston Is.</option>
+        <option value="AlST">(GMT -10) USA (Aleutian Is.)</option>
+        <option value="NAST">(GMT -9) USA (Alaska)</option>
+        <option value="MxBajaN">(GMT -8) Mexico (Baja N.)</option>
+        <option value="PST">(GMT -8) USA (Pacific), Canada (Pacific &amp; Yukon)</option>
+        <option value="MxBajaS">(GMT -7) Mexico (Baja S.)</option>
+        <option value="MST">(GMT -7) USA (Mountain), Canada (Mountain)</option>
+        <option value="Arizona">(GMT -7) USA (Arizona)</option>
+        <option value="UCT7">(GMT -7) None</option>
+        <option value="Sask">(GMT -6) Canada (Saskatchewan)</option>
+        <option value="CST">(GMT -6) USA (Central), Canada (Central)</option>
+        <option value="Mex">(GMT -6) Mexico</option>
+        <option value="UCT6">(GMT -6) Belize, Costa Rica, El Salvador, Guatemala, Honduras, Nicaragua</option>
+        <option value="UCT5">(GMT -5) Cayman Is., Colombia, Ecuador, Jamaica, Panama</option>
+        <option value="Indiana">(GMT -5) USA (Indiana)</option>
+        <option selected="selected" value="EST">(GMT -5) USA (Eastern), Canada (Eastern), Bahamas, Haiti, Turks &amp; Cacos</option>
+        <option value="ACRE">(GMT -5) Brazil (Trinity of Acre)</option>
+        <option value="Ven">(GMT -4.5) Venezuela</option>
+        <option value="WBST">(GMT -4) Brazil (West)</option>
+        <option value="AST">(GMT -4) Canada (Atlantic), Bermuda, Greenland (Thule)</option>
+        <option value="Chile">(GMT -4) Chile</option>
+        <option value="UCT4">(GMT -4) Barbados, Bolivia, Dominican Republic, Guadeloupe, Guiana, Puerto Rico, Venezuela</option>
+        <option value="NST">(GMT -3.5) Canada (Newfoundland)</option>
+        <option value="SAT">(GMT -3) Argentina, French Guiana, Surinam, Uruguay</option>
+        <option value="Arg">(GMT -3) Argentina</option>
+        <option value="EBST">(GMT -3) Brazil (East, including all coast and Brasilia)</option>
+        <option value="NAST3">(GMT -3) Saint Pierre &amp; Miquelon</option>
+        <option value="NORO">(GMT -2) Brazil (Fernando De Noronha)</option>
+        <option value="EUT1">(GMT -1) Greenland (Scoresbysund), Portugal (Azores)</option>
+        <option value="UCT1">(GMT -1) Cape Verde Is</option>
+        <option value="UCT">(GMT +0) Iceland, Mali, Ivory Coast, Gambia, Ghana, Guinea, Liberia, Morocco, Senegal</option>
+        <option value="GMT">(GMT +0) United Kingdom, Ireland</option>
+        <option value="PWT">(GMT +0) Portugal, Madeira</option>
+        <option value="WET">(GMT +0) Spain (Canary Is.), Faroe Islands</option>
+        <option value="CET">(GMT +1) Austria, Belgium, Denmark, France, Germany, Italy, Netherlands, Norway, Spain, Sweden, Switzerland</option>
+        <option value="UCTm1">(GMT +1) Algeria, Angola, Cameroon, Chad, Congo, Gabon, Niger, Nigeria, Tunisia</option>
+        <option value="UCTm2">(GMT +2) Botswana, Burundi, Estonia, Mozambique, Rwanda, Swaziland, Zambia, Zimbabwe</option>
+        <option value="SST">(GMT +2) Syria</option>
+        <option value="SAST">(GMT +2) South Africa</option>
+        <option value="EUTm2">(GMT +2) Lebanon</option>
+        <option value="EET">(GMT +2) Bulgaria, Finland, Greece, Romania, Russian Fed. (Zone1), Turkey, Ukraine</option>
+        <option value="Egypt">(GMT +2) Egypt</option>
+        <option value="Israel">(GMT +2) Israel</option>
+        <option value="JST">(GMT +2) Jordan</option>
+        <option value="IST">(GMT +3) Iraq</option>
+        <option value="RFTm2">(GMT +3) Russian Federation (Zone 1)</option>
+        <option value="UCTm3">(GMT +3) Ethiopia, Kenya, Kuwait, Madagascar, Qatar, Saudi Arabia, Somalia, Sudan, Tanzania</option>
+        <option value="Iran">(GMT +3.5) Iran</option>
+        <option value="UCTm4">(GMT +4) Azerbaijan, Mauritius, Oman, Reunion, Seychelles, United Arab Emirates</option>
+        <option value="RFTm3">(GMT +4) Russian Federation (Zone 2)</option>
+        <option value="UAEST">(GMT +4) United Arab Emirates</option>
+        <option value="AFG">(GMT +4.5) Afghanistan</option>
+        <option value="RFTm4">(GMT +5) Russian Federation (Zone 3)</option>
+        <option value="UCTm5">(GMT +5) Maldives, Pakistan, Tajikistan, Turkmenistan, Uzbekistan</option>
+        <option value="UCTm5colon30">(GMT +5.5) India, Sri Lanka</option>
+        <option value="UCTm5colon45">(GMT +5.75) Nepal</option>
+        <option value="UCTm6">(GMT +6) Bangladesh, Bhutan</option>
+        <option value="RFTm5">(GMT +6) Russian Federation (Zone 4)</option>
+        <option value="UCTm6colon30">(GMT +6.5) Myanmar, Cocos (Keeling) Is.</option>
+        <option value="UCTm7">(GMT +7) Cambodia, Kampuchea, Indonesia (West), Thailand, Vietnam</option>
+        <option value="RFTm6">(GMT +7) Russian Federation (Zone 5)</option>
+        <option value="RFTm7">(GMT +8) Russian Federation (Zone 6)</option>
+        <option value="UCTm8">(GMT +8) Brunei</option>
+        <option value="ChST">(GMT +8) China, Hong Kong, Taiwan</option>
+        <option value="MALST">(GMT +8) Malaysia, Singapore, Indonesia (Central), Philippines</option>
+        <option value="WAST">(GMT +8) Australia (Western)</option>
+        <option value="JapST">(GMT +9) Japan</option>
+        <option value="UCTm9">(GMT +9) Indonesia (East), Korea</option>
+        <option value="RFTm8">(GMT +9) Russian Federation (Zone 7)</option>
+        <option value="UCTm9colon30">(GMT +9.5) Australia (Northern Territory)</option>
+        <option value="ACST">(GMT +9.5) Australia (South Australia and Broken Hill)</option>
+        <option value="AEST">(GMT +10) Australia (NSW, Capitol Territory, Victoria)</option>
+        <option value="UCTm10">(GMT +10) Australia (Queensland), Guam, Papua New Guinea</option>
+        <option value="RFTm9">(GMT +10) Russian Federation (Zone 8)</option>
+        <option value="TST">(GMT +10) Australia (Tasmania)</option>
+        <option value="UCTm11">(GMT +11) New Caledonia, Solomon Is., Vanuatu</option>
+        <option value="RFTm10">(GMT +11) Russian Federation (Zone 9)</option>
+        <option value="UCTm11colon30">(GMT +11.5) Norfolk Is.</option>
+        <option value="UCTm12">(GMT +12) Fiji, Kiribati, Nauru, Tuvalu, Wake Is., Wallis &amp; Futana Is.</option>
+        <option value="NZST">(GMT +12) New Zealand</option>
+        <option value="RFTm11">(GMT +12) Russian Federation (Zone 10)</option>
+        <option value="RFTm12">(GMT +13) Russian Federation (Zone 11)</option>
+        <option value="UCTm13">(GMT +13) Tonga</option>
 
-</select>
-  </li>
+      </select>
+      </li>
       <div id="address_field">
         <li>
-          <label>Address</label>
-          <input name="address" type="text">
+        <label>Address</label>
+        <input name="address" type="text">
         </li>
         <li>
-          <label>City</label>
-          <input name="city" type="text">
+        <label>City</label>
+        <input name="city" type="text">
         </li>
         <li>
-          <label>State</label>
-          <input name="state" type="text">
+        <label>State</label>
+        <input name="state" type="text">
         </li>
         <li>
-          <label>Zip</label>
-          <input name="zip" type="text">
+        <label>Zip</label>
+        <input name="zip" type="text">
         </li>
       </div>
-        <li>
-          <button type="submit">Get Notified</button>
-        </li>
-      </ul>
-    <% end %>
-  </div><!--/form-->
+      <li>
+      <%= f.label :iss_event, "Subscribe to ISS Events" %>
+      <%= f.check_box :iss_event %>
+      </li>
+      <li>
+      <%= f.label :iridium_event, "Subscribe to Iridium Events" %>
+      <%= f.check_box :iridium_event %>
+      </li>
+      <li>
+      <button type="submit">Get Notified</button>
+      </li>
+    </ul>
+  <% end %>
+</div><!--/form-->

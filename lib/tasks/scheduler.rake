@@ -7,8 +7,8 @@ desc "This task is called by the Heroku scheduler add-on and checks all of our e
 task :check_events do
   puts "Starting events check"
 
-  Event.descendants.each do |event|
-    event.scan_for_subscriber
-  end
+  IssEvent.scan_for_subscriber
+  IridiumEvent.scan_for_subscriber
+
   puts "Finished with events check"
 end
