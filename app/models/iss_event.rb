@@ -14,7 +14,8 @@ class IssEvent < Event
     if subscribers.count > 0
       @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
       subscribers.each do |subscriber|
-        doc = Hpricot(open("http://www.heavens-above.com/PassSummary.aspx?satid=25544&Dur=1&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz="+subscriber.zone))
+        url = "http://www.heavens-above.com/PassSummary.aspx?satid=25544&Dur=1&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz="+subscriber.zone
+        doc = Hpricot(open(url))
 
         count = 1
         start_time = alt = az = date = ''
@@ -31,9 +32,11 @@ class IssEvent < Event
           count = count + 1
         end
 
-        alt = alt.gsub(/\D/, "") 
-        iss_time = Time.parse(date + ' ' + start_time)
+        alt = alt.gsub(/\D/, "")
 
+        Time.zone = subscriber.zone
+        t = Time.zone.now
+        iss_time = Time.parse(date + ' ' + start_time)
         time_diff = Time.diff(iss_time, t)
 
         if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] < 20)
