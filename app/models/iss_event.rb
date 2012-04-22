@@ -1,6 +1,7 @@
 require 'hpricot'
 require 'open-uri'
-# require 'placefinder'
+require 'placefinder'
+require 'time_diff'
 
 
 class IssEvent < Event
@@ -11,34 +12,48 @@ class IssEvent < Event
     if subscribers.count > 0
       @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
       subscribers.each do |subscriber|
-  puts"NEW SUBSCRIBER"
-  #      latlng =  subscriber.latitude.to_s + ',' + subscriber.longitude.to_s
-  #          placefinder = Placefinder::Base.new(:api_key => 'dj0yJmk9eWhETThSSW81WUJFJmQ9WVdrOVdFWk9RV3N6TkdFbWNHbzlNakV5TVRRM016TTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kNw--')
- # placeresult =  placefinder.get :q => latlng, :flags => 'TJ', :gflags => 'R'
- # Time.zone = placeresult['ResultSet']['Results'][0]['timezone']
- # t=  Time.zone.now
- #puts t.zone
- #puts ActiveSupport::TimeZone::MAPPING.find{|z| z == placeresult['ResultSet']['Results'][0]['timezone']}.tzinfo.current_period.abbreviation.to_s
-   # puts placeresult['ResultSet']['Results'][0]['timezone'].to_json
-   #puts "http://www.heavens-above.com/PassSummary.aspx?satid=25544&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz="+t.zone
-        doc = Hpricot(open("http://www.heavens-above.com/PassSummary.aspx?satid=25544&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz=GMT"))
-  puts      doc.search('table.standardTable').at('tr.lightrow').search('td').at('a').inner_html
-        # do |stuff|
-   #puts stuff.at('a').inner_html
- #end
-        # change the CSS class on list element ul
-    #    (doc/"ul.site-nav").set("class", "new-site-nav")
-        #  remove the header
-     #   (doc/"#header").remove
-        # print the altered HTML
-      #  puts doc
+        latlng =  subscriber.latitude.to_s + ',' + subscriber.longitude.to_s
+        placefinder = Placefinder::Base.new(:api_key => 'dj0yJmk9eWhETThSSW81WUJFJmQ9WVdrOVdFWk9RV3N6TkdFbWNHbzlNakV5TVRRM016TTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kNw--')
+        placeresult =  placefinder.get :q => latlng, :flags => 'TJ', :gflags => 'R'
+        Time.zone = placeresult['ResultSet']['Results'][0]['timezone']
+        t = Time.zone.now
+        zone = t.zone
+        if (zone == 'EEST')
+          zone = 'RFTm2'
+        end
+        begin
+          doc = Hpricot(open("http://www.heavens-above.com/PassSummary.aspx?satid=25544&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz="+zone))
+        rescue Exception => e
+          doc = Hpricot(open("http://www.heavens-above.com/PassSummary.aspx?satid=25544&lat="+subscriber.latitude.to_s+"&lng="+subscriber.longitude.to_s+"&tz=GMT"))
+        end
 
-       # http://www.heavens-above.com/PassSummary.aspx?satid=25544&lat=40.73503&lng=-73.99159
-       # @client.account.sms.messages.create(
-       #   :from => '+14155992671',
-      #    :to => subscriber.phonenumber,
-      #    :body => 'The Internation Space Station will pass overhead soon, go outside and check it out! NOW!'
-      #  )
+        count = 1
+        start_time = alt = az = date = ''
+        doc.search('table.standardTable').at('tr.lightrow').search('td') do | col |
+          if (count == 1)
+            date = col.at('a').inner_html
+          elsif (count == 3)
+            start_time = col.inner_html
+          elsif (count == 4)
+            alt = col.inner_html
+          elsif (count == 5)
+            az = col.inner_html
+          end
+          count = count + 1
+        end
+        iss_time = Time.parse(date + ' ' + start_time)
+
+        time_diff = Time.diff(iss_time, t)
+
+        if (time_diff[:year] == 0 and time_diff[:month] == 0 and time_diff[:week] == 0 and time_diff[:day] == 0 and time_diff[:hour] == 0 and time_diff[:minute] > 20)
+          puts 'Sending SMS to ' + subscriber.phonenumber + ' about the ISS'
+      
+          @client.account.sms.messages.create(
+            :from => '+14155992671',
+            :to => subscriber.phonenumber,
+            :body => 'The International Space Station will pass overhead in ' + time_diff[:minute] + ' minutes in the direction ' + az + ' at about ' + alt + ' degrees, go check it out!'
+          )
+        end
       end
     end
   end
