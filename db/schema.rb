@@ -11,29 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120422011255) do
-
-  create_table "events", :force => true do |t|
-    t.string   "type"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "events_subscribers", :force => true do |t|
-    t.integer  "subscriber_id"
-    t.integer  "event_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120422150722) do
 
   create_table "subscribers", :force => true do |t|
     t.string   "phonenumber"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "zone"
+    t.boolean  "iss_event",     :default => true
+    t.boolean  "iridium_event", :default => true
   end
 
 end

@@ -6,9 +6,9 @@ require 'time_diff'
 #but its the only way I found to get accurate data about when a satellite will actually be VISIBLE
 #sorry for the ugliness, but hey, it works!
 
-class IssEvent < Event
+class IssEvent
   def self.scan_for_subscriber
-    subscribers = Subscriber.where('latitude IS NOT NULL AND longitude IS NOT NULL')
+    subscribers = Subscriber.where('latitude IS NOT NULL AND longitude IS NOT NULL AND iss_event = 1')
     puts "Found #{subscribers.count} subscribers"
 
     if subscribers.count > 0
