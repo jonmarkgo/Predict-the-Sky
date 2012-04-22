@@ -40,7 +40,7 @@ class SubscribersController < ApplicationController
   # POST /subscribers
   # POST /subscribers.json
   def create
-    @subscriber = Subscriber.new
+    @subscriber = Subscriber.find_or_create_by_phonenumber(params[:subscriber][:phonenumber])
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
     @subscriber.phonenumber = params[:subscriber][:phonenumber]
     @subscriber.phonenumber = @subscriber.phonenumber.gsub(/\D/, "")  
@@ -56,6 +56,8 @@ class SubscribersController < ApplicationController
     @subscriber.latitude = latitude
     @subscriber.longitude = longitude
     @subscriber.zone = Timezone::Zone.new(:latlon => [latitude, longitude]).rules.last["name"]
+    @subscriber.iss_event = params[:subscriber][:iss_event]
+    @subscriber.iridium_event = params[:subscriber][:iridium_event]
 
     respond_to do |format|
       if @subscriber.save
